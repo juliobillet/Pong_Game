@@ -8,23 +8,35 @@ class Paddle(Turtle):
     def __init__(self, paddle_pos):
         super(Paddle, self).__init__()
         self.paddle_position = paddle_pos
-        self.paddle = self.create_paddle()
-
-    def create_paddle(self):
-        paddle_obj = Turtle(shape="square")
-        paddle_obj.penup()
-        paddle_obj.color("white")
-        paddle_obj.goto(self.paddle_position)
-        paddle_obj.resizemode("user")
-        paddle_obj.shapesize(stretch_wid=5, stretch_len=1)
-        return paddle_obj
+        self.shape("square")
+        self.penup()
+        self.color("white")
+        self.goto(self.paddle_position)
+        self.resizemode("user")
+        self.shapesize(stretch_wid=5, stretch_len=1)
+        self.draw_line_at_center()
 
     def go_up(self):
-        if self.paddle.ycor() < Y_LIMIT:
-            new_y = self.paddle.ycor() + 20
-            self.paddle.goto(x=self.paddle.xcor(), y=new_y)
+        if self.ycor() < Y_LIMIT:
+            new_y = self.ycor() + 20
+            self.goto(x=self.xcor(), y=new_y)
 
     def go_down(self):
-        if self.paddle.ycor() > -Y_LIMIT:
-            new_y = self.paddle.ycor() - 20
-            self.paddle.goto(x=self.paddle.xcor(), y=new_y)
+        if self.ycor() > -Y_LIMIT:
+            new_y = self.ycor() - 20
+            self.goto(x=self.xcor(), y=new_y)
+
+    @staticmethod
+    def draw_line_at_center():
+        draw_line = Turtle()
+        draw_line.pencolor("white")
+        draw_line.hideturtle()
+        draw_line.penup()
+        draw_line.setpos(0, -340)
+        draw_line.pensize(10)
+        draw_line.setheading(90)
+        for i in range(10):
+            draw_line.forward(40)
+            draw_line.pendown()
+            draw_line.forward(40)
+            draw_line.penup()
